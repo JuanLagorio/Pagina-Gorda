@@ -1129,16 +1129,238 @@ footer small {
     transform: translateY(0);
 }
 
+/* ── BURGER ───────────────────────────────────────── */
+#burger {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2400;
+    background: rgba(232,0,30,0.15);
+    border: 1px solid rgba(232,0,30,0.35);
+    border-radius: 12px;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.25s ease;
+    padding: 0;
+}
+#burger:hover { background: rgba(232,0,30,0.32); }
+#burger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+#burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── SIDEBAR ──────────────────────────────────────── */
+#sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 2499;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+#sidebar-backdrop.show { opacity: 1; visibility: visible; }
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 270px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--dark2) 0%, var(--dark) 100%);
+    border-right: 1px solid rgba(232,0,30,0.2);
+    z-index: 2500;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 80px 24px 40px;
+    overflow-y: auto;
+}
+#sidebar.open { transform: translateX(0); }
+
+.sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(232,0,30,0.15);
+    border: 1px solid rgba(232,0,30,0.35);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    color: var(--white);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.25s;
+}
+.sidebar-close:hover { background: rgba(232,0,30,0.4); transform: rotate(90deg); }
+
+.sidebar-brand { margin-bottom: 36px; }
+.sidebar-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 6px;
+}
+.sidebar-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    background: linear-gradient(135deg, var(--hot-pink), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 12px;
+    color: var(--blush);
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-align: left;
+    width: 100%;
+    opacity: 0.65;
+    transition: background 0.2s, opacity 0.2s, transform 0.2s;
+}
+.sidebar-link:hover {
+    background: rgba(232,0,30,0.12);
+    opacity: 1;
+    transform: translateX(4px);
+}
+.sidebar-link span { font-size: 1.2rem; width: 26px; flex-shrink: 0; }
+
+.sidebar-inf {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, var(--hot-pink), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-top: 24px;
+    opacity: 0.5;
+    line-height: 1;
+}
+.sidebar-inf sup { font-size: 0.55em; vertical-align: 0.5em; }
+
+/* ── HERO BUTTONS (4) ─────────────────────────────── */
+.razones-btn {
+    padding: 13px 28px;
+    background: transparent;
+    color: var(--blush);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    border: 1px solid rgba(245,200,66,0.4);
+    border-radius: 50px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.razones-btn:hover {
+    background: rgba(245,200,66,0.1);
+    border-color: var(--gold);
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(245,200,66,0.2);
+}
+.planes-btn {
+    padding: 13px 28px;
+    background: transparent;
+    color: var(--blush);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    border: 1px solid rgba(255,77,120,0.4);
+    border-radius: 50px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.planes-btn:hover {
+    background: rgba(255,77,120,0.1);
+    border-color: var(--pink);
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(255,77,120,0.2);
+}
+
+/* ── RAZONES OVERLAY ──────────────────────────────── */
+#razones-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px);
+    transition: opacity 0.45s ease, visibility 0.45s ease, transform 0.45s ease;
+}
+#razones-overlay.active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.razon-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.razon-card.visible { opacity: 1; transform: translateY(0); }
+
+/* ── PLANES OVERLAY ───────────────────────────────── */
+#planes-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(10, 0, 4, 0.97);
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 70px 24px 90px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px);
+    transition: opacity 0.45s ease, visibility 0.45s ease, transform 0.45s ease;
+}
+#planes-overlay.active { opacity: 1; visibility: visible; transform: translateY(0); }
+.planes-overlay-inner { max-width: 640px; width: 100%; }
+
 /* ── SHARED NEW SECTIONS ──────────────────────────── */
-.razones-section,
-.planes-section,
 .songs-section {
     position: relative;
     z-index: 1;
     padding: 80px 24px;
 }
-.razones-section::before,
-.planes-section::before,
 .songs-section::before {
     content: '';
     position: absolute;
@@ -1432,11 +1654,66 @@ footer small {
     border: none;
     display: block;
 }
+.song-thumb {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+.song-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: brightness(0.65);
+}
+.song-thumb:hover img { transform: scale(1.04); filter: brightness(0.5); }
+.song-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(232,0,30,0.85);
+    border: 2px solid rgba(255,255,255,0.4);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(232,0,30,0.5);
+    padding-left: 4px;
+}
+.song-thumb:hover .song-play-btn {
+    background: var(--red);
+    transform: translate(-50%, -50%) scale(1.12);
+    box-shadow: 0 8px 30px rgba(232,0,30,0.7);
+}
+
+/* ── HERO BUTTONS 4-GRID ──────────────────────────── */
+.hero-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+}
+
+/* centrar última razón cuando queda sola */
+.razones-grid .razon-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 360px;
+    margin: 0 auto;
+    width: 100%;
+}
 
 /* ── RESPONSIVE (secciones nuevas) ───────────────── */
 @media (max-width: 768px) {
-    .razones-section,
-    .planes-section,
     .songs-section { padding: 60px 16px; }
 
     .razones-grid {

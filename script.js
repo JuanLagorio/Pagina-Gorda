@@ -271,6 +271,60 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft')  navLightbox(-1);
 });
 
+// ── RAZONES OVERLAY ──────────────────────────────────────────────
+function abrirRazones() {
+    const overlay = document.getElementById('razones-overlay');
+    overlay.classList.add('active');
+    overlay.querySelector('.mem-scroll-area').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    const cards = overlay.querySelectorAll('.razon-card');
+    cards.forEach(c => c.classList.remove('visible'));
+    setTimeout(() => {
+        cards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 75));
+    }, 180);
+}
+function cerrarRazones() {
+    document.getElementById('razones-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ── PLANES OVERLAY ────────────────────────────────────────────────
+function abrirPlanes() {
+    const overlay = document.getElementById('planes-overlay');
+    overlay.classList.add('active');
+    overlay.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+}
+function cerrarPlanes() {
+    document.getElementById('planes-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────────
+function abrirSidebar() {
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('sidebar-backdrop').classList.add('show');
+    document.getElementById('burger').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function cerrarSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-backdrop').classList.remove('show');
+    document.getElementById('burger').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// ── SONG PLAY (lazy iframe) ───────────────────────────────────────
+document.querySelectorAll('.song-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+        const card = thumb.closest('.song-card');
+        const videoId = card.dataset.video;
+        const title = card.querySelector('h3').textContent;
+        const player = card.querySelector('.song-player');
+        player.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" title="${title}" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+    });
+});
+
 // ── PLANES (BUCKET LIST) ─────────────────────────────────────────
 const planItems = document.querySelectorAll('.plan-item');
 
