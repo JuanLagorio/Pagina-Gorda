@@ -1117,3 +1117,351 @@ footer small {
     .photo-desc { font-size: 0.58rem; }
     .photo-card.flipped .photo-overlay { padding: 8px 10px; }
 }
+
+/* ── REVEAL ON SCROLL ─────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── SHARED NEW SECTIONS ──────────────────────────── */
+.razones-section,
+.planes-section,
+.songs-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px;
+}
+.razones-section::before,
+.planes-section::before,
+.songs-section::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(232,0,30,0.5), transparent);
+}
+
+/* ── RAZONES ──────────────────────────────────────── */
+.razones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 50px auto 0;
+}
+
+.razon-card {
+    background: var(--dark2);
+    border: 1px solid rgba(232,0,30,0.18);
+    border-radius: 20px;
+    padding: 30px 26px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.razon-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, rgba(232,0,30,0.09) 0%, transparent 65%);
+    pointer-events: none;
+}
+.razon-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--red), var(--pink));
+    border-radius: 20px 20px 0 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+.razon-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(232,0,30,0.22);
+    border-color: rgba(232,0,30,0.4);
+}
+.razon-card:hover::after { transform: scaleX(1); }
+
+.razon-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    opacity: 0.45;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+.razon-emoji {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+.razon-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+.razon-card p {
+    font-size: 0.88rem;
+    color: var(--blush);
+    opacity: 0.62;
+    line-height: 1.75;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── PLANES ───────────────────────────────────────── */
+.planes-list {
+    max-width: 620px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.plan-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--dark2);
+    border: 1px solid rgba(232,0,30,0.18);
+    border-radius: 18px;
+    padding: 18px 22px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+}
+.plan-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232,0,30,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.plan-item:hover {
+    transform: translateX(6px);
+    border-color: rgba(232,0,30,0.38);
+    box-shadow: -4px 0 20px rgba(232,0,30,0.12);
+}
+.plan-item:hover::before { opacity: 1; }
+.plan-item input[type="checkbox"] { display: none; }
+
+.plan-check {
+    width: 28px;
+    height: 28px;
+    border: 2px solid rgba(232,0,30,0.4);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+.plan-check span {
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    line-height: 1;
+}
+.plan-item.checked .plan-check {
+    background: linear-gradient(135deg, var(--red), var(--hot-pink));
+    border-color: transparent;
+    transform: scale(1.08);
+    box-shadow: 0 0 14px rgba(232,0,30,0.45);
+}
+.plan-item.checked .plan-check span {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.plan-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+.plan-emoji {
+    font-size: 1.9rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.plan-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    line-height: 1.3;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+.plan-text p {
+    font-size: 0.78rem;
+    color: var(--blush);
+    opacity: 0.5;
+    margin-top: 3px;
+    font-style: italic;
+    line-height: 1.4;
+    transition: opacity 0.3s ease;
+}
+.plan-item.checked .plan-text h3 {
+    color: var(--pink);
+    opacity: 0.6;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,64,120,0.45);
+}
+.plan-item.checked .plan-text p { opacity: 0.25; }
+
+.planes-progress {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 0.85rem;
+    color: var(--blush);
+    opacity: 0.55;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+.planes-progress span {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-style: normal;
+}
+
+/* ── SONGS ────────────────────────────────────────── */
+.songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 26px;
+    max-width: 1100px;
+    margin: 50px auto 0;
+}
+
+.song-card {
+    background: var(--dark2);
+    border: 1px solid rgba(232,0,30,0.18);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.song-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 55px rgba(232,0,30,0.22);
+}
+
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 22px 14px;
+}
+.song-vinyl {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    display: block;
+    animation: spin 10s linear infinite;
+    transform-origin: center;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.song-meta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    line-height: 1.3;
+}
+.song-artist {
+    font-size: 0.72rem;
+    color: var(--gold);
+    opacity: 0.75;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 3px;
+    display: block;
+}
+.song-note {
+    font-size: 0.8rem;
+    color: var(--blush);
+    opacity: 0.55;
+    font-style: italic;
+    margin-top: 5px;
+    line-height: 1.5;
+    display: block;
+}
+
+.song-player {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+.song-player iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* ── RESPONSIVE (secciones nuevas) ───────────────── */
+@media (max-width: 768px) {
+    .razones-section,
+    .planes-section,
+    .songs-section { padding: 60px 16px; }
+
+    .razones-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 36px;
+    }
+    .razon-card { padding: 18px 14px; }
+    .razon-emoji { font-size: 1.7rem; }
+    .razon-card h3 { font-size: 0.95rem; }
+    .razon-card p { font-size: 0.78rem; }
+
+    .planes-list { margin-top: 36px; gap: 10px; }
+    .plan-item { padding: 14px 16px; gap: 12px; }
+    .plan-emoji { font-size: 1.55rem; }
+    .plan-text h3 { font-size: 0.95rem; }
+
+    .songs-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .razones-grid { grid-template-columns: 1fr; }
+    .plan-item:hover { transform: none; box-shadow: none; }
+}

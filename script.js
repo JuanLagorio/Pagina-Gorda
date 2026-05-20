@@ -271,6 +271,48 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft')  navLightbox(-1);
 });
 
+// ── PLANES (BUCKET LIST) ─────────────────────────────────────────
+const planItems = document.querySelectorAll('.plan-item');
+
+function updatePlanesProgress() {
+    const checked = document.querySelectorAll('.plan-item.checked').length;
+    const el = document.getElementById('planes-progress-num');
+    if (el) el.textContent = checked;
+    if (checked === planItems.length && planItems.length > 0) {
+        showToast('¡Cumplimos todos nuestros planes! Te amo infinito 💕');
+    }
+}
+
+planItems.forEach(item => {
+    const cb = item.querySelector('input[type="checkbox"]');
+    const saved = localStorage.getItem('plan_' + item.dataset.plan);
+    if (saved === 'true') {
+        item.classList.add('checked');
+        cb.checked = true;
+    }
+    cb.addEventListener('change', () => {
+        item.classList.toggle('checked', cb.checked);
+        localStorage.setItem('plan_' + item.dataset.plan, cb.checked);
+        updatePlanesProgress();
+        if (cb.checked) showToast('¡Un plan más cerca de cumplirse! 💕');
+    });
+});
+
+updatePlanesProgress();
+
+// ── REVEAL ON SCROLL ──────────────────────────────────────────────
+const revealItems = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+    const visible = entries.filter(e => e.isIntersecting);
+    visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    visible.forEach((entry, i) => {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        revealObserver.unobserve(entry.target);
+    });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+revealItems.forEach(el => revealObserver.observe(el));
+
 // ── FLOATING HEARTS (canvas) ──────────────────────────────────────
 (function () {
     const canvas = document.getElementById('bg-canvas');
