@@ -59,6 +59,21 @@ const photos = [
         src: "Fotos Julieta/Siesta.jpg",
         caption: "La siesta 😴",
         desc: "No hay momento en el cual te veas mal."
+    },
+    {
+        src: "Fotos Julieta/bs as juntos.jpeg",
+        caption: "Buenos Aires juntos 🌆",
+        desc: "La ciudad nuestra, con vos es diferente."
+    },
+    {
+        src: "Fotos Julieta/con nuestros hjitos.jpeg",
+        caption: "Con nuestros hijitos 👨‍👩‍👧",
+        desc: "La familia que vamos a armar."
+    },
+    {
+        src: "Fotos Julieta/flia por siempre.jpeg",
+        caption: "Familia por siempre 🤍",
+        desc: "Para siempre, sin dudas."
     }
 ];
 
@@ -162,6 +177,7 @@ updateRealCounter();
 setInterval(updateRealCounter, 1000);
 
 function abrirRealCounter() {
+    cerrarTodosLosOverlays();
     document.getElementById('real-counter-overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -194,6 +210,7 @@ document.getElementById('intro').addEventListener('click', () => {
 
 // ── MOSTRAR / CERRAR RECUERDOS ────────────────────────────────────
 function mostrarRecuerdos() {
+    cerrarTodosLosOverlays();
     const overlay = document.getElementById('memories-overlay');
     overlay.classList.add('active');
     overlay.scrollTop = 0;
@@ -226,6 +243,7 @@ function cerrarPremium() {
 
 // ── ABRIR / CERRAR CARTA ──────────────────────────────────────────
 function abrirCarta() {
+    cerrarTodosLosOverlays();
     const overlay = document.getElementById('letter-overlay');
     overlay.classList.add('active');
     overlay.scrollTop = 0;
@@ -271,8 +289,21 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft')  navLightbox(-1);
 });
 
+// ── CERRAR TODOS LOS OVERLAYS ─────────────────────────────────────
+const OVERLAYS = ['memories-overlay','letter-overlay','real-counter-overlay',
+                  'razones-overlay','planes-overlay','premium-overlay'];
+
+function cerrarTodosLosOverlays() {
+    OVERLAYS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+    });
+    document.body.style.overflow = '';
+}
+
 // ── RAZONES OVERLAY ──────────────────────────────────────────────
 function abrirRazones() {
+    cerrarTodosLosOverlays();
     const overlay = document.getElementById('razones-overlay');
     overlay.classList.add('active');
     overlay.querySelector('.mem-scroll-area').scrollTop = 0;
@@ -290,6 +321,7 @@ function cerrarRazones() {
 
 // ── PLANES OVERLAY ────────────────────────────────────────────────
 function abrirPlanes() {
+    cerrarTodosLosOverlays();
     const overlay = document.getElementById('planes-overlay');
     overlay.classList.add('active');
     overlay.scrollTop = 0;
