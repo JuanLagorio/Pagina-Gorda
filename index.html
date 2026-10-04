@@ -2,96 +2,154 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Para Julieta 💕</title>
+    <meta name="description" content="Para mi espollita, con todo mi amor.">
+    <meta name="theme-color" content="#12000a">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <noscript><style>#intro{display:none}.hero-in,.ltr,.reveal{opacity:1!important;transform:none!important;filter:none!important}.dock{transform:translate(-50%,0)!important}</style></noscript>
 </head>
 <body>
 
-<!-- ── INTRO ─────────────────────────────────────── -->
+<!-- ── ICONOS ─────────────────────────────────────── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+    </defs>
+</svg>
+
+<!-- ── FONDO ──────────────────────────────────────── -->
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<canvas id="fx-canvas" aria-hidden="true"></canvas>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ── INTRO ──────────────────────────────────────── -->
 <div id="intro">
-    <div class="intro-hearts">
-        <span>🤍</span><span>❤️</span><span>🤍</span>
-    </div>
-    <h1 class="intro-title">
-        Para mi<br>
-        <em>Espollita</em>
-    </h1>
-    <p class="intro-sub">con todo mi amor</p>
-    <p class="intro-infinity">∞<sup>∞</sup></p>
-    <p class="intro-hint">✦ toca para entrar ✦</p>
+    <p class="intro-eyebrow">para mi</p>
+    <h1 class="intro-title">Espollita</h1>
+    <p class="intro-sub">con todo mi amor · ∞<sup>∞</sup></p>
+    <button class="hold" id="hold" type="button" aria-label="Mantené apretado el corazón para entrar">
+        <svg class="hold-ring" viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+                <linearGradient id="hold-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ff2e63"/>
+                    <stop offset="1" stop-color="#f5c842"/>
+                </linearGradient>
+            </defs>
+            <circle class="hold-track" cx="60" cy="60" r="54"/>
+            <circle class="hold-fill" cx="60" cy="60" r="54"/>
+        </svg>
+        <span class="hold-heart-wrap"><svg class="hold-heart" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart"/></svg></span>
+    </button>
+    <p class="intro-hint" id="intro-hint">mantené apretado el corazón</p>
 </div>
 
-<!-- ── FLOATING HEARTS CANVAS ─────────────────────── -->
-<canvas id="bg-canvas"></canvas>
+<!-- ── PÁGINA ─────────────────────────────────────── -->
+<main>
 
-<!-- ── LIGHTBOX ───────────────────────────────────── -->
-<div id="lightbox">
-    <button class="lb-close" onclick="closeLightbox()">✕</button>
-    <button class="lb-nav lb-prev" onclick="navLightbox(-1)">‹</button>
-    <img id="lightbox-img" src="" alt="">
-    <div class="lb-info">
-        <h3 id="lb-title"></h3>
-        <p  id="lb-desc"></p>
-    </div>
-    <button class="lb-nav lb-next" onclick="navLightbox(1)">›</button>
-</div>
-
-<!-- ── REAL COUNTER OVERLAY ───────────────────────── -->
-<div id="real-counter-overlay">
-    <button class="mem-close" onclick="cerrarRealCounter()">✕</button>
-    <div class="real-counter-inner">
-        <p class="real-counter-eyebrow">❤ la verdad es... ❤</p>
-        <h2 class="real-counter-title">lo nuestro viene<br><em>de mucho antes</em></h2>
-        <p class="real-counter-sub">📅 desde el 6 de Mayo, 2023</p>
-        <div class="counter-wrap real-counter-wrap">
-            <div class="counter-box">
-                <div class="cnt-num" id="real-cnt-days">—</div>
-                <div class="cnt-unit">días</div>
-            </div>
-            <div class="counter-box">
-                <div class="cnt-num" id="real-cnt-hours">—</div>
-                <div class="cnt-unit">horas</div>
-            </div>
-            <div class="counter-box">
-                <div class="cnt-num" id="real-cnt-minutes">—</div>
-                <div class="cnt-unit">minutos</div>
-            </div>
-            <div class="counter-box">
-                <div class="cnt-num" id="real-cnt-seconds">—</div>
-                <div class="cnt-unit">segundos</div>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-inner">
+            <p class="eyebrow hero-in" style="--d:0">❤ nuestra historia ❤</p>
+            <h1 class="hero-title">
+                <span class="hero-line hero-in" style="--d:1">Para mi amor,</span>
+                <span class="hero-name" id="hero-name" aria-label="Julieta">Julieta</span>
+                <span class="hero-nick hero-in" style="--d:4">mi espollita</span>
+            </h1>
+            <p class="hero-sub hero-in" style="--d:5" aria-label="Gracias por hacer que cada momento valga la pena. No te vayas nunca.">
+                <span id="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span>
+            </p>
+            <button class="infinity hero-in" style="--d:6" id="inf-egg" type="button" title="tocame tres veces ✦" aria-label="Infinito al infinito" data-fx="own">∞<sup>∞</sup></button>
+            <div class="chips hero-in" style="--d:7">
+                <span class="chip">📅 Juntos desde el 2 de Marzo</span>
+                <span class="chip chip-gold">🕙 22:24 · la hora en que todo empezó</span>
             </div>
         </div>
-    </div>
-</div>
+        <a href="#contador" class="scroll-cue hero-in" style="--d:9">deslizá<span></span></a>
+    </section>
 
-<!-- ── MEMORIES OVERLAY ───────────────────────────── -->
-<div id="memories-overlay">
-    <button class="mem-close" onclick="cerrarRecuerdos()">✕</button>
-    <div class="premium-btn-wrap">
-        <button class="premium-btn locked" id="premium-btn" onclick="intentarPremium()">🔒 Recuerdo Premium</button>
-    </div>
-    <div class="mem-scroll-area">
-        <div class="mem-overlay-inner">
-            <div class="sec-head">
-                <h2>Nuestros <span>recuerdos</span></h2>
-                <p id="mem-progress">Girá las 15 tarjetas para desbloquear las fotos</p>
-                <div class="heart-divider">❤</div>
-            </div>
-            <div class="gallery-grid" id="gallery"></div>
+    <!-- CONTADOR -->
+    <section class="section" id="contador">
+        <header class="sec-head reveal" id="cnt-head">
+            <p class="eyebrow" id="cnt-eyebrow">❤ el contador ❤</p>
+            <h2 id="cnt-title">Llevamos <em>juntos</em></h2>
+            <p class="sec-sub" id="cnt-sub">📅 desde el 2 de Marzo, 2026</p>
+        </header>
+
+        <div class="clock reveal" aria-hidden="true">
+            <div class="clock-unit glass"><div class="odo" data-unit="days"></div><span>días</span></div>
+            <div class="clock-unit glass"><div class="odo" data-unit="hours"></div><span>horas</span></div>
+            <div class="clock-unit glass"><div class="odo" data-unit="minutes"></div><span>minutos</span></div>
+            <div class="clock-unit glass"><div class="odo" data-unit="seconds"></div><span>segundos</span></div>
         </div>
-    </div>
-</div>
+        <p class="sr-only" id="cnt-sr"></p>
 
-<!-- ── LETTER OVERLAY ─────────────────────────────── -->
-<div id="letter-overlay">
-    <button class="mem-close" onclick="cerrarCarta()">✕</button>
-    <div class="letter-inner">
-        <div class="letter-paper">
+        <div class="secret-wrap reveal">
+            <button class="secret-btn" id="secret-btn" type="button" data-fx="own">Pero... ¿solo eso? 👀</button>
+        </div>
 
+        <div class="cnt-extras reveal">
+            <div class="ring-card glass">
+                <div class="ring-wrap">
+                    <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+                        <circle class="ring-track" cx="60" cy="60" r="52"/>
+                        <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52"/>
+                    </svg>
+                    <div class="ring-center"><strong id="ring-num">—</strong><span id="ring-unit">días</span></div>
+                </div>
+                <p class="ring-text"><span id="ring-pre">faltan</span><strong id="ring-text">—</strong></p>
+            </div>
+            <div class="stat glass"><strong id="st-months">—</strong><span>meses</span></div>
+            <div class="stat glass"><strong id="st-weeks">—</strong><span>semanas</span></div>
+            <div class="stat glass"><strong id="st-beats">—</strong><span>latidos pensándote</span></div>
+        </div>
+    </section>
+
+    <!-- RECUERDOS -->
+    <section class="section" id="recuerdos">
+        <header class="sec-head reveal">
+            <p class="eyebrow">❤ 15 momentos ❤</p>
+            <h2>Nuestros <em>recuerdos</em></h2>
+            <p class="sec-sub" id="mem-text">Girá las 15 polaroids para desbloquear el recuerdo premium</p>
+        </header>
+        <div class="mem-progress reveal">
+            <div class="mem-bar"><span id="mem-bar-fill"></span></div>
+            <span id="mem-count">0 / 15</span>
+        </div>
+        <div class="polaroids" id="gallery"></div>
+        <div class="premium-wrap reveal">
+            <button class="premium-btn locked" id="premium-btn" type="button" data-fx="own">🔒 Recuerdo Premium</button>
+        </div>
+    </section>
+
+    <!-- CARTA -->
+    <section class="section" id="carta">
+        <header class="sec-head reveal">
+            <p class="eyebrow">❤ 2 de abril, 2026 ❤</p>
+            <h2>Carta del <em>primer mes</em></h2>
+            <p class="sec-sub" id="carta-sub">tocá el sello para abrirla</p>
+        </header>
+
+        <div class="envelope-stage reveal" id="env-stage">
+            <div class="envelope" id="envelope">
+                <div class="env-back"></div>
+                <div class="env-paper"><span>Para Julieta</span><small>con todo mi amor</small></div>
+                <div class="env-front"></div>
+                <div class="env-flap"></div>
+                <button class="env-seal" id="env-seal" type="button" aria-label="Abrir la carta" data-fx="own">J</button>
+            </div>
+        </div>
+
+        <article class="letter" id="letter" hidden>
             <div class="letter-header">
                 <span class="letter-seal">💌</span>
-                <h2 class="letter-title">Carta del Primer Mes</h2>
+                <h3 class="letter-title">Carta del Primer Mes</h3>
                 <p class="letter-date">2 de Abril, 2026</p>
             </div>
 
@@ -114,265 +172,265 @@
                 <p class="letter-sign">Te amo, es-pollito. ❤</p>
             </div>
 
-        </div>
-    </div>
-</div>
+            <button class="letter-close" id="letter-close" type="button">guardar la carta ✉</button>
+        </article>
+    </section>
 
-<!-- ── TOAST ──────────────────────────────────────── -->
-<div id="toast"></div>
+    <!-- RAZONES -->
+    <section class="section" id="razones">
+        <header class="sec-head reveal">
+            <p class="eyebrow">❤ para amarte, gorda ❤</p>
+            <h2>10 razones de las <em>infinitas al infinito</em></h2>
+            <p class="sec-sub">deslizá las cartas para un costado</p>
+        </header>
 
-<!-- ── PAGE ───────────────────────────────────────── -->
-<main>
-
-    <section class="hero">
-        <p class="hero-eyebrow">❤ nuestra historia ❤</p>
-        <h1>
-            Para mi amor,
-            <span class="name">Julieta</span>
-            <span class="nickname">mi espollita</span>
-        </h1>
-        <p class="hero-sub">
-            Gracias por hacer que cada momento valga la pena.<br>
-            No te vayas nunca.
-        </p>
-        <p class="hero-infinity">∞<sup>∞</sup></p>
-        <div class="hero-meta">
-            <span class="hero-date">📅 Juntos desde el 2 de Marzo</span>
-            <span class="hero-time">🕙 22:24 · la hora en que todo empezó</span>
-        </div>
-        <div class="hero-buttons">
-            <button class="memories-btn" onclick="mostrarRecuerdos()">Nuestros recuerdos ❤</button>
-            <button class="letter-btn" onclick="abrirCarta()">Carta del 1er mes 💌</button>
-            <button class="razones-btn" onclick="abrirRazones()">10 razones para amarte ❤️</button>
-            <button class="planes-btn" onclick="abrirPlanes()">Nuestros planes ✈️</button>
+        <div class="deck-wrap reveal">
+            <div class="deck" id="deck" tabindex="0" aria-label="10 razones para amarte. Usá las flechas para pasar las cartas." data-fx="own">
+                <article class="r-card" style="--c1:#ff6b93;--c2:#a3123f"><span class="r-num">01</span><span class="r-emoji">😂</span><h3>Tu risa</h3><p>Cuando te reís, el mundo se detiene. Me voy completamente loco.</p></article>
+                <article class="r-card" style="--c1:#ff8a65;--c2:#b0244a"><span class="r-num">02</span><span class="r-emoji">👃</span><h3>Tu nariz</h3><p>Sí, es mía. Y te queda perfecta, igual que todo en vos.</p></article>
+                <article class="r-card" style="--c1:#c25cff;--c2:#4b1677"><span class="r-num">03</span><span class="r-emoji">🤝</span><h3>La confianza entre nosotros</h3><p>Sé que nunca me traicionarías. Ese sentimiento vale más que todo el oro del mundo.</p></article>
+                <article class="r-card" style="--c1:#ff3d5a;--c2:#6e0a24"><span class="r-num">04</span><span class="r-emoji">💪</span><h3>Tu fuerza</h3><p>Tenés una fortaleza que me inspira todos los días. No la cambiés nunca.</p></article>
+                <article class="r-card" style="--c1:#ffa94d;--c2:#c43a5e"><span class="r-num">05</span><span class="r-emoji">🤪</span><h3>Tu humor y tu bobez</h3><p>Sos la persona más divertida que conozco. Me hacés reír como nadie.</p></article>
+                <article class="r-card" style="--c1:#ff7aa8;--c2:#7e1a55"><span class="r-num">06</span><span class="r-emoji">🤗</span><h3>Tu abrazo</h3><p>Cuando estamos abrazados me siento el tipo más cuidado del universo.</p></article>
+                <article class="r-card" style="--c1:#e9b949;--c2:#b8174f"><span class="r-num">07</span><span class="r-emoji">✨</span><h3>Tu hermosura</h3><p>Física y personal. Te ponés cualquier cosa y seguís siendo la más hermosa.</p></article>
+                <article class="r-card" style="--c1:#34d399;--c2:#0b4f4a"><span class="r-num">08</span><span class="r-emoji">⚡</span><h3>Que sos mi kriptonita</h3><p>Mi único punto débil, y lo soy felizmente. No quiero defenderme de vos.</p></article>
+                <article class="r-card" style="--c1:#7c83ff;--c2:#24145e"><span class="r-num">09</span><span class="r-emoji">🌙</span><h3>Que pensamos en un futuro juntos</h3><p>Bora Bora, Villa Serrana, nuestros 3 hijos... pensar en ese futuro me llena el corazón.</p></article>
+                <article class="r-card" style="--c1:#ff2e63;--c2:#5c001b"><span class="r-num">10</span><span class="r-emoji">❤️</span><h3>Que sos el amor de mi vida</h3><p>No hay más que agregar. Sos LA mina que SOS.</p></article>
+                <article class="r-card r-final"><span class="r-emoji r-inf">∞<sup>∞</sup></span><h3>y infinitas más</h3><p>estas son solo diez, gorda.</p><button class="r-reset" id="deck-reset" type="button">volver a empezar ↺</button></article>
+            </div>
+            <div class="deck-controls">
+                <button class="round-btn" id="deck-prev" type="button" aria-label="Razón anterior">‹</button>
+                <span id="deck-count">1 / 10</span>
+                <button class="round-btn" id="deck-next" type="button" aria-label="Siguiente razón">›</button>
+            </div>
         </div>
     </section>
 
-    <section class="counter-section">
-        <p class="counter-label">❤ llevamos juntos ❤</p>
-        <p class="counter-infinity">∞<sup>∞</sup></p>
-        <div class="counter-wrap">
-            <div class="counter-box">
-                <div class="cnt-num" id="cnt-days">—</div>
-                <div class="cnt-unit">días</div>
+    <!-- PLANES -->
+    <section class="section" id="planes">
+        <header class="sec-head reveal">
+            <p class="eyebrow">❤ todo lo que vamos a vivir juntos ❤</p>
+            <h2>Nuestros <em>planes</em></h2>
+            <p class="sec-sub">tocá cada plan cuando lo cumplamos y mirá cómo se llena el corazón</p>
+        </header>
+
+        <div class="plans reveal">
+            <div class="plans-heart">
+                <svg viewBox="1 2 22 20.5" aria-hidden="true">
+                    <defs>
+                        <clipPath id="ph-clip"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></clipPath>
+                        <linearGradient id="ph-grad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#ff7a9a"/>
+                            <stop offset=".35" stop-color="#ff2e63"/>
+                            <stop offset="1" stop-color="#8f0a2e"/>
+                        </linearGradient>
+                    </defs>
+                    <g clip-path="url(#ph-clip)">
+                        <rect x="0" y="0" width="24" height="24" fill="rgba(255,214,224,.05)"/>
+                        <g class="ph-liquid" id="ph-liquid" style="transform: translateY(22px)">
+                            <path class="wave w2" d="M-24 0 Q-21 -1 -18 0 T-12 0 T-6 0 T0 0 T6 0 T12 0 T18 0 T24 0 T30 0 T36 0 T42 0 T48 0 V30 H-24 Z"/>
+                            <path class="wave w1" d="M-24 .3 Q-21 -.6 -18 .3 T-12 .3 T-6 .3 T0 .3 T6 .3 T12 .3 T18 .3 T24 .3 T30 .3 T36 .3 T42 .3 T48 .3 V30 H-24 Z"/>
+                        </g>
+                    </g>
+                    <path class="ph-outline" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <div class="ph-label">
+                    <strong id="planes-pct">0%</strong>
+                    <span><span id="planes-progress-num">0</span> / 7 cumplidos</span>
+                </div>
             </div>
-            <div class="counter-box">
-                <div class="cnt-num" id="cnt-hours">—</div>
-                <div class="cnt-unit">horas</div>
-            </div>
-            <div class="counter-box">
-                <div class="cnt-num" id="cnt-minutes">—</div>
-                <div class="cnt-unit">minutos</div>
-            </div>
-            <div class="counter-box">
-                <div class="cnt-num" id="cnt-seconds">—</div>
-                <div class="cnt-unit">segundos</div>
+
+            <div class="plan-list">
+                <label class="plan-item glass" data-plan="casarnos">
+                    <input type="checkbox" id="plan-casarnos">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">💍</span>
+                    <span class="plan-text"><strong>Casarnos</strong><small>El día más importante de nuestras vidas</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
+                <label class="plan-item glass" data-plan="hijos">
+                    <input type="checkbox" id="plan-hijos">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">👶</span>
+                    <span class="plan-text"><strong>Tener nuestros 3 hijos</strong><small>Genética buena, los tres van a ser hermosos</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
+                <label class="plan-item glass" data-plan="mudarnos">
+                    <input type="checkbox" id="plan-mudarnos">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">🏠</span>
+                    <span class="plan-text"><strong>Mudarnos juntos</strong><small>Nuestro propio lugar en el mundo</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
+                <label class="plan-item glass" data-plan="viajar-solos">
+                    <input type="checkbox" id="plan-viajar-solos">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">✈️</span>
+                    <span class="plan-text"><strong>Viajar juntos solos</strong><small>Bora Bora o donde sea, vos y yo nada más</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
+                <label class="plan-item glass" data-plan="viajar">
+                    <input type="checkbox" id="plan-viajar">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">🌍</span>
+                    <span class="plan-text"><strong>Viajar juntos</strong><small>Ver el mundo con vos es todo lo que pido</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
+                <label class="plan-item glass" data-plan="bathbomb">
+                    <input type="checkbox" id="plan-bathbomb">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">🛁</span>
+                    <span class="plan-text"><strong>Bath bomb juntos</strong><small>Un momento tranquilo y especial para los dos</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
+                <label class="plan-item glass" data-plan="dormir">
+                    <input type="checkbox" id="plan-dormir">
+                    <span class="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-heart"/></svg></span>
+                    <span class="plan-emoji" aria-hidden="true">🌙</span>
+                    <span class="plan-text"><strong>Dormir juntos</strong><small>En tu casa o en la mía, me da igual con tal que estés vos</small></span>
+                    <span class="plan-stamp" aria-hidden="true">¡cumplido!</span>
+                </label>
             </div>
         </div>
-        <button class="secret-btn" onclick="abrirRealCounter()">Pero... ¿solo eso? 👀</button>
     </section>
 
-    <!-- ── CANCIONES ──────────────────────────────────────────── -->
-    <section class="songs-section">
-        <div class="sec-head">
-            <h2>Nuestras <span>canciones</span></h2>
-            <p>las que suenan cuando pienso en vos</p>
-            <div class="heart-divider">❤</div>
-        </div>
-        <div class="songs-grid">
-            <div class="song-card reveal" data-video="5M_n2UCe7DQ">
-                <div class="song-info">
-                    <span class="song-vinyl">💿</span>
+    <!-- CANCIONES -->
+    <section class="section" id="canciones">
+        <header class="sec-head reveal">
+            <p class="eyebrow">❤ nuestro soundtrack ❤</p>
+            <h2>Nuestras <em>canciones</em></h2>
+            <p class="sec-sub">las que suenan cuando pienso en vos</p>
+        </header>
+
+        <div class="songs">
+            <article class="song glass reveal" data-video="5M_n2UCe7DQ">
+                <div class="song-top">
+                    <button class="song-art" type="button" aria-label="Reproducir 444" data-fx="own">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <span class="cover"><img src="https://img.youtube.com/vi/5M_n2UCe7DQ/hqdefault.jpg" alt="" loading="lazy"></span>
+                        <span class="play-ico" aria-hidden="true"></span>
+                    </button>
                     <div class="song-meta">
                         <h3>444</h3>
                         <p class="song-artist">Yan Block</p>
                         <p class="song-note">Porque así es lo que siento por vos, sin límites.</p>
+                        <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
                     </div>
                 </div>
-                <div class="song-player">
-                    <div class="song-thumb">
-                        <img src="https://img.youtube.com/vi/5M_n2UCe7DQ/hqdefault.jpg" alt="444" loading="lazy">
-                        <button class="song-play-btn" aria-label="Reproducir">▶</button>
-                    </div>
-                </div>
-            </div>
-            <div class="song-card reveal" data-video="z5i9vT8wGY8">
-                <div class="song-info">
-                    <span class="song-vinyl">💿</span>
+                <div class="song-player"><div class="player-box"></div></div>
+            </article>
+            <article class="song glass reveal" data-video="z5i9vT8wGY8" style="--d:1">
+                <div class="song-top">
+                    <button class="song-art" type="button" aria-label="Reproducir Stand By Me" data-fx="own">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <span class="cover"><img src="https://img.youtube.com/vi/z5i9vT8wGY8/hqdefault.jpg" alt="" loading="lazy"></span>
+                        <span class="play-ico" aria-hidden="true"></span>
+                    </button>
                     <div class="song-meta">
                         <h3>Stand By Me</h3>
                         <p class="song-artist">Ben E. King</p>
                         <p class="song-note">Porque siempre voy a estar para vos, pase lo que pase.</p>
+                        <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
                     </div>
                 </div>
-                <div class="song-player">
-                    <div class="song-thumb">
-                        <img src="https://img.youtube.com/vi/z5i9vT8wGY8/hqdefault.jpg" alt="Stand By Me" loading="lazy">
-                        <button class="song-play-btn" aria-label="Reproducir">▶</button>
-                    </div>
-                </div>
-            </div>
-            <div class="song-card reveal" data-video="J36z7AnhvOM">
-                <div class="song-info">
-                    <span class="song-vinyl">💿</span>
+                <div class="song-player"><div class="player-box"></div></div>
+            </article>
+            <article class="song glass reveal" data-video="J36z7AnhvOM" style="--d:2">
+                <div class="song-top">
+                    <button class="song-art" type="button" aria-label="Reproducir Can't Take My Eyes Off You" data-fx="own">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <span class="cover"><img src="https://img.youtube.com/vi/J36z7AnhvOM/hqdefault.jpg" alt="" loading="lazy"></span>
+                        <span class="play-ico" aria-hidden="true"></span>
+                    </button>
                     <div class="song-meta">
                         <h3>Can't Take My Eyes Off You</h3>
                         <p class="song-artist">Frankie Valli</p>
                         <p class="song-note">Porque no puedo dejar de mirarte, nunca.</p>
+                        <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
                     </div>
                 </div>
-                <div class="song-player">
-                    <div class="song-thumb">
-                        <img src="https://img.youtube.com/vi/J36z7AnhvOM/hqdefault.jpg" alt="Can't Take My Eyes Off You" loading="lazy">
-                        <button class="song-play-btn" aria-label="Reproducir">▶</button>
-                    </div>
-                </div>
-            </div>
-            <div class="song-card reveal" data-video="pE49WK-oNjU">
-                <div class="song-info">
-                    <span class="song-vinyl">💿</span>
+                <div class="song-player"><div class="player-box"></div></div>
+            </article>
+            <article class="song glass reveal" data-video="pE49WK-oNjU" style="--d:3">
+                <div class="song-top">
+                    <button class="song-art" type="button" aria-label="Reproducir Stuck with U" data-fx="own">
+                        <span class="vinyl" aria-hidden="true"></span>
+                        <span class="cover"><img src="https://img.youtube.com/vi/pE49WK-oNjU/hqdefault.jpg" alt="" loading="lazy"></span>
+                        <span class="play-ico" aria-hidden="true"></span>
+                    </button>
                     <div class="song-meta">
                         <h3>Stuck with U</h3>
-                        <p class="song-artist">Ariana Grande & Justin Bieber</p>
+                        <p class="song-artist">Ariana Grande &amp; Justin Bieber</p>
                         <p class="song-note">Porque quedarme con vos es lo mejor que me pudo pasar.</p>
+                        <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
                     </div>
                 </div>
-                <div class="song-player">
-                    <div class="song-thumb">
-                        <img src="https://img.youtube.com/vi/pE49WK-oNjU/hqdefault.jpg" alt="Stuck with U" loading="lazy">
-                        <button class="song-play-btn" aria-label="Reproducir">▶</button>
-                    </div>
-                </div>
-            </div>
+                <div class="song-player"><div class="player-box"></div></div>
+            </article>
         </div>
     </section>
 
+    <!-- FINAL -->
+    <footer class="footer" id="final">
+        <div class="kiss reveal">
+            <button class="kiss-btn" id="kiss-btn" type="button" aria-label="Mandar un besito" data-fx="own">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart"/></svg>
+            </button>
+            <p class="kiss-label">mandame un besito</p>
+            <p class="kiss-count" id="kiss-count">tocá el corazón 💋</p>
+        </div>
+        <p class="footer-msg reveal">
+            Te quiero muchísimo,<br>
+            <em>mi espollita hermosha.</em>
+        </p>
+        <p class="infinity footer-inf">∞<sup>∞</sup></p>
+        <small class="footer-small">hecho con amor · 2 de marzo · 22:24</small>
+    </footer>
+
 </main>
 
-<footer>
-    <div class="footer-hearts">❤️</div>
-    <p class="footer-msg">
-        Te quiero muchísimo,<br>
-        <em>mi espollita hermosha.</em>
-    </p>
-    <p class="footer-infinity">∞<sup>∞</sup></p>
-    <small>hecho con amor · 2 de marzo · 22:24</small>
-</footer>
+<!-- ── DOCK ───────────────────────────────────────── -->
+<nav class="dock" id="dock" aria-label="Secciones">
+    <span class="dock-pill" id="dock-pill" aria-hidden="true"></span>
+    <a href="#contador" data-label="Contador" aria-label="Contador"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></a>
+    <a href="#recuerdos" data-label="Recuerdos" aria-label="Recuerdos"><svg viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.8l1.4-2h6.6l1.4 2h1.8A2.5 2.5 0 0 1 21 8.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.6"/></svg></a>
+    <a href="#carta" data-label="Carta" aria-label="Carta"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></a>
+    <a href="#razones" data-label="10 razones" aria-label="10 razones"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></a>
+    <a href="#planes" data-label="Planes" aria-label="Planes"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l7 2.5L12.5 21z"/><path d="m10 13.5 4-4"/></svg></a>
+    <a href="#canciones" data-label="Canciones" aria-label="Canciones"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg></a>
+</nav>
 
-<!-- ── RAZONES OVERLAY ────────────────────────────── -->
-<div id="razones-overlay">
-    <button class="mem-close" onclick="cerrarRazones()">✕</button>
-    <div class="mem-scroll-area">
-        <div class="mem-overlay-inner">
-            <div class="sec-head">
-                <h2>10 razones de las <span>infinitas al infinito</span></h2>
-                <p>para amarte, gorda</p>
-                <div class="heart-divider">❤</div>
-            </div>
-            <div class="razones-grid">
-                <div class="razon-card"><div class="razon-num">01</div><span class="razon-emoji">😂</span><h3>Tu risa</h3><p>Cuando te reís, el mundo se detiene. Me voy completamente loco.</p></div>
-                <div class="razon-card"><div class="razon-num">02</div><span class="razon-emoji">👃</span><h3>Tu nariz</h3><p>Sí, es mía. Y te queda perfecta, igual que todo en vos.</p></div>
-                <div class="razon-card"><div class="razon-num">03</div><span class="razon-emoji">🤝</span><h3>La confianza entre nosotros</h3><p>Sé que nunca me traicionarías. Ese sentimiento vale más que todo el oro del mundo.</p></div>
-                <div class="razon-card"><div class="razon-num">04</div><span class="razon-emoji">💪</span><h3>Tu fuerza</h3><p>Tenés una fortaleza que me inspira todos los días. No la cambiés nunca.</p></div>
-                <div class="razon-card"><div class="razon-num">05</div><span class="razon-emoji">🤪</span><h3>Tu humor y tu bobez</h3><p>Sos la persona más divertida que conozco. Me hacés reír como nadie.</p></div>
-                <div class="razon-card"><div class="razon-num">06</div><span class="razon-emoji">🤗</span><h3>Tu abrazo</h3><p>Cuando estamos abrazados me siento el tipo más cuidado del universo.</p></div>
-                <div class="razon-card"><div class="razon-num">07</div><span class="razon-emoji">✨</span><h3>Tu hermosura</h3><p>Física y personal. Te ponés cualquier cosa y seguís siendo la más hermosa.</p></div>
-                <div class="razon-card"><div class="razon-num">08</div><span class="razon-emoji">⚡</span><h3>Que sos mi kriptonita</h3><p>Mi único punto débil, y lo soy felizmente. No quiero defenderme de vos.</p></div>
-                <div class="razon-card"><div class="razon-num">09</div><span class="razon-emoji">🌙</span><h3>Que pensamos en un futuro juntos</h3><p>Bora Bora, Villa Serrana, nuestros 3 hijos... pensar en ese futuro me llena el corazón.</p></div>
-                <div class="razon-card"><div class="razon-num">10</div><span class="razon-emoji">❤️</span><h3>Que sos el amor de mi vida</h3><p>No hay más que agregar. Sos LA mina que SOS.</p></div>
-            </div>
-        </div>
-    </div>
+<!-- ── LIGHTBOX ───────────────────────────────────── -->
+<div class="modal lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" aria-hidden="true">
+    <button class="m-close" id="lb-close" type="button" aria-label="Cerrar">✕</button>
+    <button class="lb-nav lb-prev" id="lb-prev" type="button" aria-label="Foto anterior">‹</button>
+    <figure class="lb-figure">
+        <img id="lb-img" alt="">
+        <figcaption>
+            <strong id="lb-title"></strong>
+            <span id="lb-desc"></span>
+            <small id="lb-count"></small>
+        </figcaption>
+    </figure>
+    <button class="lb-nav lb-next" id="lb-next" type="button" aria-label="Foto siguiente">›</button>
 </div>
 
-<!-- ── PLANES OVERLAY ─────────────────────────────── -->
-<div id="planes-overlay">
-    <button class="mem-close" onclick="cerrarPlanes()">✕</button>
-    <div class="planes-overlay-inner">
-        <div class="sec-head">
-            <h2>Nuestros <span>planes</span></h2>
-            <p>todo lo que vamos a vivir juntos</p>
-            <div class="heart-divider">❤</div>
-        </div>
-        <div class="planes-list">
-            <label class="plan-item" data-plan="casarnos">
-                <input type="checkbox" id="plan-casarnos">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">💍</span><div class="plan-text"><h3>Casarnos</h3><p>El día más importante de nuestras vidas</p></div></div>
-            </label>
-            <label class="plan-item" data-plan="hijos">
-                <input type="checkbox" id="plan-hijos">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">👶</span><div class="plan-text"><h3>Tener nuestros 3 hijos</h3><p>Genética buena, los tres van a ser hermosos</p></div></div>
-            </label>
-            <label class="plan-item" data-plan="mudarnos">
-                <input type="checkbox" id="plan-mudarnos">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">🏠</span><div class="plan-text"><h3>Mudarnos juntos</h3><p>Nuestro propio lugar en el mundo</p></div></div>
-            </label>
-            <label class="plan-item" data-plan="viajar-solos">
-                <input type="checkbox" id="plan-viajar-solos">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">✈️</span><div class="plan-text"><h3>Viajar juntos solos</h3><p>Bora Bora o donde sea, vos y yo nada más</p></div></div>
-            </label>
-            <label class="plan-item" data-plan="viajar">
-                <input type="checkbox" id="plan-viajar">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">🌍</span><div class="plan-text"><h3>Viajar juntos</h3><p>Ver el mundo con vos es todo lo que pido</p></div></div>
-            </label>
-            <label class="plan-item" data-plan="bathbomb">
-                <input type="checkbox" id="plan-bathbomb">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">🛁</span><div class="plan-text"><h3>Bath bomb juntos</h3><p>Un momento tranquilo y especial para los dos</p></div></div>
-            </label>
-            <label class="plan-item" data-plan="dormir">
-                <input type="checkbox" id="plan-dormir">
-                <div class="plan-check"><span>✓</span></div>
-                <div class="plan-content"><span class="plan-emoji">🌙</span><div class="plan-text"><h3>Dormir juntos</h3><p>En tu casa o en la mía, me da igual con tal que estés vos</p></div></div>
-            </label>
-        </div>
-        <p class="planes-progress">
-            <span id="planes-progress-num">0</span> / 7 planes cumplidos ❤
-        </p>
-    </div>
-</div>
-
-<!-- ── BURGER ──────────────────────────────────────── -->
-<button id="burger" onclick="abrirSidebar()" aria-label="Menú">
-    <span></span><span></span><span></span>
-</button>
-
-<!-- ── SIDEBAR ─────────────────────────────────────── -->
-<div id="sidebar-backdrop" onclick="cerrarSidebar()"></div>
-<div id="sidebar">
-    <button class="sidebar-close" onclick="cerrarSidebar()">✕</button>
-    <div class="sidebar-brand">
-        <p class="sidebar-eyebrow">❤ para ti ❤</p>
-        <h2 class="sidebar-title">Julieta</h2>
-    </div>
-    <nav class="sidebar-nav">
-        <button class="sidebar-link" onclick="cerrarSidebar(); mostrarRecuerdos()"><span>📸</span> Nuestros recuerdos</button>
-        <button class="sidebar-link" onclick="cerrarSidebar(); abrirCarta()"><span>💌</span> Carta del 1er mes</button>
-        <button class="sidebar-link" onclick="cerrarSidebar(); abrirRazones()"><span>❤️</span> 10 razones para amarte</button>
-        <button class="sidebar-link" onclick="cerrarSidebar(); abrirPlanes()"><span>✈️</span> Nuestros planes</button>
-        <button class="sidebar-link" onclick="cerrarSidebar(); document.querySelector('.songs-section').scrollIntoView({behavior:'smooth'})"><span>🎵</span> Nuestras canciones</button>
-    </nav>
-    <p class="sidebar-inf">∞<sup>∞</sup></p>
-</div>
-
-<!-- ── PREMIUM OVERLAY ────────────────────────────── -->
-<div id="premium-overlay">
-    <button class="mem-close" onclick="cerrarPremium()">✕</button>
+<!-- ── RECUERDO PREMIUM ───────────────────────────── -->
+<div class="modal premium" id="premium" role="dialog" aria-modal="true" aria-label="Recuerdo premium" aria-hidden="true">
+    <button class="m-close" id="premium-close" type="button" aria-label="Cerrar">✕</button>
     <div class="premium-inner">
-        <p class="premium-eyebrow">✦ recuerdo premium ✦</p>
+        <p class="eyebrow">✦ recuerdo premium ✦</p>
         <div class="premium-frame">
-            <img src="Fotos Julieta/Bla.jpg" alt="Nuestra primera foto juntos">
+            <img id="premium-img" data-src="Fotos Julieta/Bla.jpg" alt="Nuestra primera foto juntos">
+            <canvas id="scratch" aria-label="Rascá para descubrir la foto"></canvas>
         </div>
-        <p class="premium-caption">Nuestra primera foto juntos</p>
+        <p class="premium-caption" id="premium-caption">rascá con el dedo para descubrirlo ✦</p>
     </div>
 </div>
+
+<!-- ── TOAST ──────────────────────────────────────── -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
