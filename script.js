@@ -238,6 +238,32 @@ document.addEventListener('click', e => {
     FX.burst(e.clientX, e.clientY, { count: 9, power: 4, size: [7, 14] });
 });
 
+// Doble toque sin zoom: el segundo toque rápido se cancela (así no hace zoom)
+// y se reenvía como un clic normal, para que tocar rápido siga andando.
+(() => {
+    let lastTap = 0, sx = 0, sy = 0;
+    document.addEventListener('touchstart', e => {
+        const t = e.touches[0];
+        sx = t.clientX; sy = t.clientY;
+    }, { passive: true });
+    document.addEventListener('touchend', e => {
+        if (e.touches.length || e.changedTouches.length !== 1) return;
+        const t = e.changedTouches[0];
+        if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) return; // fue un deslizamiento
+        const now = Date.now();
+        if (now - lastTap < 350) {
+            e.preventDefault();
+            let el = e.target;
+            while (el && !(el instanceof HTMLElement)) el = el.parentNode; // los <svg> no tienen .click()
+            if (el) {
+                el.click();
+                if (!el.closest('[data-fx="own"], .modal, #intro')) FX.burst(t.clientX, t.clientY, { count: 9, power: 4, size: [7, 14] });
+            }
+        }
+        lastTap = now;
+    }, { passive: false });
+})();
+
 // ── HERO ──────────────────────────────────────────────────────────
 const Hero = (() => {
     const nameEl = $('#hero-name');

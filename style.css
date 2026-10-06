@@ -4,6 +4,9 @@
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Sin zoom con doble toque en el celu (deslizar y pellizcar siguen andando) */
+* { touch-action: manipulation; }
+
 :root {
     --bg:      #12000a;
     --bg-2:    #1d0412;
